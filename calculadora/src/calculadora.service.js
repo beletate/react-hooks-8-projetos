@@ -3,7 +3,7 @@ function CalculadoraService() {
     const SOMA = '+';
     const SUBTRACAO = '-';
     const DIVISAO = '/';
-    const MULTIPLICACAO = '*'
+    const MULTIPLICACAO = '*';
 
     function calcular(numero1, numero2, operacao) {
         let resultado;
@@ -28,8 +28,25 @@ function CalculadoraService() {
         return resultado;
     }
 
+    function concatenarNumero(numAtual, numConcat){
+        if(numAtual === '0' || numAtual === null){
+            numAtual = '';
+        }
+
+        if(numConcat === '.' && numAtual === ''){
+            return '0.';
+        }
+
+        if(numConcat === '.' && numAtual.indexOf('.') > -1){
+            return numAtual;
+        }
+
+        return numAtual + numConcat;
+    }
+
     return [
         calcular,
+        concatenarNumero,
         SOMA,
         SUBTRACAO,
         DIVISAO,

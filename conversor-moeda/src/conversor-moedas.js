@@ -83,7 +83,7 @@ function ConversorMoedas() {
   }
 
   return (
-    <div>
+    <div style={{margin: "50px", marginTop: "200px"}}>
       <h1>Conversor de Moedas</h1>
       <Alert variant="danger" show={exibirMsgErro}>
         Erro ao obter dados de conversão, tente novamente.

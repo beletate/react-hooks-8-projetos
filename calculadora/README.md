@@ -1,5 +1,6 @@
 # Calculadora
 
+![Calculadora](img/calculadora.gif)
 
 ## Scripts Úteis
 

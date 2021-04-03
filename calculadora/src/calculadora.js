@@ -68,7 +68,7 @@ function Calculadora() {
       background: 'transparent !important',
       backgroundColor: '#007bff',
       padding: '5px',
-      margin: '5px',
+      margin: '250px',
       width: '400px'
     }}>
       <Container>

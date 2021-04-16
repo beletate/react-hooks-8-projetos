@@ -1,3 +1,4 @@
+import React from 'react'
 import GerenciadorTarefas from './gerenciador-tarefas';
 import ReactDOM from 'react-dom'
 

@@ -25,7 +25,7 @@ function ItensListaTarefas(props) {
                     recarregarTarefas={props.recarregarTarefas}
                     className={tarefa.concluida ? 'hidden' : null}/>
                     &nbsp;
-                    <A href={"/atualizar/" + tarefa.di}
+                    <A href={"/atualizar/" + tarefa.id}
                         className={tarefa.concluida ? 'hidden' : 'btn btn-warning btn-sm'}>
                         <FontAwesomeIcon icon={faEdit} />
                     </A>

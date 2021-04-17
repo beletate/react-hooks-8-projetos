@@ -39,7 +39,7 @@ function ConcluirTarefa(props) {
                 <FontAwesomeIcon icon={faClipboardCheck} />
             </Button>
             <Modal show={exibirModal} onHide={handleFecharModal}
-                data-testeid="modal">
+                data-testid="modal">
                 <Modal.Header closeButton>
                     <Modal.Title>Concluir tarefa</Modal.Title>
                 </Modal.Header>
@@ -67,7 +67,7 @@ function ConcluirTarefa(props) {
 ConcluirTarefa.propTypes = {
     tarefa: PropTypes.object.isRequired,
     recarregarTarefas: PropTypes.func.isRequired,
-    className: PropTypes.string.isRequired
+    className: PropTypes.string
 }
 
 export default ConcluirTarefa

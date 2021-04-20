@@ -26,7 +26,7 @@ function ListarTarefas() {
             listaTarefas = listaTarefas.filter(
                 tarefa => tarefa.nome.toLowerCase().indexOf(filtroTarefa.toLowerCase()) === 0
             )
-            
+
             // Ordenar
             if (ordenarAsc) {
                 listaTarefas.sort((tarefa1, tarefa2) => (tarefa1.nome.toLowerCase() > tarefa2.nome.toLowerCase()) ? 1 : -1)
@@ -64,7 +64,7 @@ function ListarTarefas() {
         setCarregarTarefas(true)
     }
 
-    function handleFiltrar(event){
+    function handleFiltrar(event) {
         setFiltroTarefa(event.target.value)
         setCarregarTarefas(true)
     }
@@ -100,8 +100,8 @@ function ListarTarefas() {
                                 type="text"
                                 value={filtroTarefa}
                                 onChange={handleFiltrar}
-                                data-testid="txt-tarefa" 
-                                className="filtro-tarefa"/>
+                                data-testid="txt-tarefa"
+                                className="filtro-tarefa" />
                         </th>
                         <th>
                             &nbsp;

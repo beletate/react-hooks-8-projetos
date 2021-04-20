@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import ItensListaTarefas from './itens-lista-tarefas'
 import Paginacao from './paginacao'
+import Ordenacao from './ordenacao'
 
 function ListarTarefas() {
 
@@ -21,9 +22,9 @@ function ListarTarefas() {
             const tarefasDb = localStorage['tarefas']
             let listaTarefas = tarefasDb ? JSON.parse(tarefasDb) : []
             // Ordenar
-            if(ordenarAsc){
+            if (ordenarAsc) {
                 listaTarefas.sort((t1, t2) => (t1.nome.toLowerCase() > t2.nome.toLowerCase()) ? 1 : -1)
-            } else if(ordenarDesc){
+            } else if (ordenarDesc) {
                 listaTarefas.sort((t1, t2) => (t1.nome.toLowerCase() < t2.nome.toLowerCase()) ? 1 : -1)
             }
             // Paginar
@@ -65,6 +66,10 @@ function ListarTarefas() {
                         <th>
                             <a href="/" onClick={handleOrdenar}>
                                 Tarefa
+                                &nbsp;
+                                <Ordenacao
+                                    ordenarAsc={ordenarAsc}
+                                    ordenarDesc={ordenarDesc} />
                             </a>
                         </th>
                         <th>

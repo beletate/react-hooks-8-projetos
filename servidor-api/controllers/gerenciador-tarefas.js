@@ -104,9 +104,39 @@ function atualizarTarefa(req, res) {
     })
 }
 
+function removerTarefa(req, res) {
+    const id = req.params.id
+    const numTarefas = tarefas.length
+    tarefas = tarefas.filter(tarefa => tarefa.id !== id)
+    if (numTarefas === tarefas.length) {
+        res.status(404).json({ erro: 'Tarefa nao encontrada.' })
+    }
+    res.json({ msg: 'Tarefa removida com sucesso!' })
+}
+
+function concluirTarefa(req, res) {
+    const id = req.params.id
+    let tarefaConcluida = false
+    tarefas = tarefas.map(tarefa => {
+        if (tarefa.id === id) {
+            tarefa.concluida = true
+            tarefaConcluida = true
+        }
+        return tarefa
+    })
+
+    if (!tarefaConcluida) {
+        res.status(404).json({ erro: 'Tarefa nao encontrada' })
+    }
+
+    res.json({ msg: 'Tarefa concluida com sucesso!' })
+}
+
 module.exports = {
     listarTarefaId,
     listarTarefas,
     cadastrarTarefa,
-    atualizarTarefa
+    atualizarTarefa,
+    removerTarefa,
+    concluirTarefa
 }

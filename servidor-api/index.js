@@ -3,7 +3,9 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const {
     listarTarefaId,
-    listarTarefas
+    listarTarefas,
+    cadastrarTarefa,
+    atualizarTarefa
 } = require('./controllers/gerenciador-tarefas')
 
 const app = express()
@@ -24,9 +26,9 @@ app.get('/gerenciador-tarefas', listarTarefas)
 
 app.get('/gerenciador-tarefas/:id', listarTarefaId)
 
-app.post('/gerenciador-tarefas', naoImplementado)
+app.post('/gerenciador-tarefas', cadastrarTarefa)
 
-app.put('/gerenciador-tarefas/:id', naoImplementado)
+app.put('/gerenciador-tarefas/:id', atualizarTarefa)
 
 app.delete('/gerenciador-tarefas/:id', naoImplementado)
 

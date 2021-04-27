@@ -6,10 +6,13 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import ItensListaTarefas from './itens-lista-tarefas'
 import Paginacao from './paginacao'
 import Ordenacao from './ordenacao'
+import axios from 'axios'
 
 function ListarTarefas() {
 
     const ITENS_POR_PAG = 3
+    const API_URL_LISTAR_TAREFAS = 'http://localhost:3001/gerenciador-tarefas'
+
     const [tarefas, setTarefas] = useState([])
     const [carregarTarefas, setCarregarTarefas] = useState(true)
     const [totalItems, setTotalItems] = useState(0)
@@ -19,24 +22,22 @@ function ListarTarefas() {
     const [filtroTarefa, setFiltroTarefa] = useState('')
 
     useEffect(() => {
-        function obterTarefas() {
-            const tarefasDb = localStorage['tarefas']
-            let listaTarefas = tarefasDb ? JSON.parse(tarefasDb) : []
-            // Filtrar
-            listaTarefas = listaTarefas.filter(
-                tarefa => tarefa.nome.toLowerCase().indexOf(filtroTarefa.toLowerCase()) === 0
-            )
-
-            // Ordenar
+        async function obterTarefas() {
+            // Ordenar 
+            let ordem = ''
             if (ordenarAsc) {
-                listaTarefas.sort((tarefa1, tarefa2) => (tarefa1.nome.toLowerCase() > tarefa2.nome.toLowerCase()) ? 1 : -1)
+                ordem = 'ASC'
             } else if (ordenarDesc) {
-                listaTarefas.sort((tarefa1, tarefa2) => (tarefa1.nome.toLowerCase() < tarefa2.nome.toLowerCase()) ? 1 : -1)
+                ordem = 'DESC'
             }
-
-            // Paginar
-            setTotalItems(listaTarefas.length)
-            setTarefas(listaTarefas.splice((paginaAtual - 1) * ITENS_POR_PAG, ITENS_POR_PAG))
+            try {
+                const params = `?pag=${paginaAtual}&ordem=${ordem}&filtro-tarefa=${filtroTarefa}`
+                let { data } = await axios.get(API_URL_LISTAR_TAREFAS + params)
+                setTotalItems(data.totalItens)
+                setTarefas(data.tarefas)
+            } catch (err) {
+                setTarefas([])
+            }
         }
         if (carregarTarefas) {
             obterTarefas()

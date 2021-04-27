@@ -1,6 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const {
+    listarTarefaId,
+    listarTarefas
+} = require('./controllers/gerenciador-tarefas')
 
 const app = express()
 const port = 3001
@@ -16,9 +20,9 @@ function naoImplementado(req, res) {
 }
 
 
-app.get('/gerenciador-tarefas', naoImplementado)
+app.get('/gerenciador-tarefas', listarTarefas)
 
-app.get('/gerenciador-tarefas/:id', naoImplementado)
+app.get('/gerenciador-tarefas/:id', listarTarefaId)
 
 app.post('/gerenciador-tarefas', naoImplementado)
 

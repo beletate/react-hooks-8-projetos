@@ -4,38 +4,19 @@ import AtualizarTarefa from './atualizar-tarefa'
 import Tarefa from '../models/tarefa.model'
 import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import axiosMock from 'axios'
 
-describe.skip('Teste do componente de atualização de tarefa', () =>{
+describe('Teste do componente de atualização de tarefa', () => {
 
     const tarefaId = 1;
-    const tarefa = new Tarefa(tarefaId, 'Nova tarefa', false)
 
-    beforeEach(() => {
-        localStorage['tarefas'] = JSON.stringify([tarefa])
-    })
-
-    it('deve renderizar o component sem erros', () => {
-        const div = document.createElement('div')
-        ReactDOM.render(<AtualizarTarefa id={tarefaId} />, div)
-        ReactDOM.unmountComponentAtNode(div)
-    })
-
-    it('deve exibir a modal de sucesso ao atualiar uma tarefa', () => {
-        const { getByTestId } = render (
+    it('deve exibir a modal de sucesso ao atualiar uma tarefa', async () => {
+        axiosMock.get.mockResolvedValueOnce({ data: { nome: 'Estudar React EVERYDAY!' } })
+        const { findByTestId } = render(
             <AtualizarTarefa id={tarefaId} />)
-        fireEvent.click(getByTestId('btn-atualizar'))
-        expect(getByTestId('modal')).toHaveTextContent('Sucesso')
+        fireEvent.click(await findByTestId('btn-atualizar'))
+        const modal = await findByTestId('modal')
+        expect(modal).toHaveTextContent('Sucesso')
     })
-
-    it('deve atualizar uma tarefa', () => {
-        const nomeTarefaAtualizada = 'Tarefa atualizada'
-        const { getByTestId } = render(
-            <AtualizarTarefa id={tarefaId} />)
-        fireEvent.change(getByTestId('txt-tarefa'), { target: { value: nomeTarefaAtualizada}})
-        fireEvent.click(getByTestId('btn-atualizar'))
-        const tarefasDb = JSON.parse(localStorage['tarefas'])
-        expect(tarefasDb[0].nome).toBe(nomeTarefaAtualizada)
-    })
-
 
 })

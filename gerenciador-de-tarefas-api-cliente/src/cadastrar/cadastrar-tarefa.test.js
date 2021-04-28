@@ -4,7 +4,7 @@ import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import CadastrarTarefa from './cadastrar-tarefa'
 
-describe('Teste do componente de cadastrar tarefa', () => {
+describe.skip('Teste do componente de cadastrar tarefa', () => {
 
     it('deve renderizar o componente sem erro', () => {
         const div = document.createElement('div')

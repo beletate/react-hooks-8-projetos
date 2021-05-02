@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
+
 const {
     listarTarefaId,
     listarTarefas,
@@ -10,12 +12,15 @@ const {
     concluirTarefa
 } = require('./controllers/gerenciador-tarefas')
 
+const upload = require('./controllers/upload')
+
 const app = express()
 const port = 3001
 
-
+app.use(express.static('public'))
 app.use(cors())
 app.use(bodyParser.json())
+app.use(fileUpload({ createParentPath: true }))
 
 app.get('/gerenciador-tarefas', listarTarefas)
 
@@ -28,6 +33,10 @@ app.put('/gerenciador-tarefas/:id', atualizarTarefa)
 app.delete('/gerenciador-tarefas/:id', removerTarefa)
 
 app.put('/gerenciador-tarefas/:id/concluir', concluirTarefa)
+
+
+// upload image
+app.post('/upload', upload)
 
 
 

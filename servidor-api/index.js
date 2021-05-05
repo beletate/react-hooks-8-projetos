@@ -12,6 +12,11 @@ const {
     concluirTarefa
 } = require('./controllers/gerenciador-tarefas')
 
+const { 
+    finalizarCompra,
+    obterCidadesPorEstado
+ } = require('./controllers/mini-ecommerce')
+
 const upload = require('./controllers/upload')
 
 const app = express()
@@ -34,6 +39,10 @@ app.delete('/gerenciador-tarefas/:id', removerTarefa)
 
 app.put('/gerenciador-tarefas/:id/concluir', concluirTarefa)
 
+
+// mini-ecommerce
+app.post('/mini-ecommerce/checkout/finalizar-compra', finalizarCompra)
+app.get('/mini-ecommerce/estado/:siglaEstado/cidades', obterCidadesPorEstado)
 
 // upload image
 app.post('/upload', upload)

@@ -16,19 +16,38 @@ function ListarProdutos() {
         { nome: 'TypeScript na prática', preco: 'R$ 9,99' }
     ]
 
+    function handleComprar(event, produto){
+        event.preventDefault()
+        // Adicionar o produto
+        
+        // Mensagem de sucesso
+    }
+
     function render() {
-        <Card
-            style={{ width: '18rem', margin: '10px', float: 'left' }}>
-            <Card.Img variant="top" src={placeholder} />
-            <Card.Body className="text-center">
-                <Card.Title style={{ height: '40px' }}>
-                    {/* nome do produto */}
-                </Card.Title>
-                <Card.Text>
-                    Descrição do produto aqui...
+        let key = 1;
+        const cards = produtos.map(produto =>
+            <Card
+                key={key}
+                data-testid={'card' + key++}
+                style={{ width: '18rem', margin: '10px', float: 'left' }}>
+                <Card.Img variant="top" src={placeholder} />
+                <Card.Body className="text-center">
+                    <Card.Title style={{ height: '40px' }}>
+                        {produto.nome}
+                    </Card.Title>
+                    <Card.Text>
+                        Descrição do produto aqui...
                 </Card.Text>
-            </Card.Body>
-        </Card>
+                    <Button
+                        variant="success"
+                        style={{ width: '100%' }}
+                        onClick={(event) => handleComprar(event, produto)}>
+                        Comprar ({produto.preco})
+                    </Button>
+                </Card.Body>
+            </Card>
+        )
+        return cards
     }
 
     return render();

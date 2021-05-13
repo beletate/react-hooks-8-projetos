@@ -12,10 +12,16 @@ function MiniEcommerce() {
   const [exibirCheckout, setExibirCheckout] = useState(false);
   const [total, setTotal] = useState('0,00');
 
+  function adicionarProduto(produto) {
+    const objCarrinho = Object.assign({}, carrinho)
+  }
+
   return (
     <div>
       <Menu />
-      <Produtos />
+      <Produtos 
+        visivel={exibirProdutos}
+        adicionarProduto={adicionarProduto}/>
       <Checkout />
     </div>
   );

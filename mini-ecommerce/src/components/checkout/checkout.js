@@ -25,6 +25,22 @@ function Checkout(props) {
 
     }
 
+    function handleDateNascimento(data) {
+        setDataNascimento(data)
+    }
+
+    function datePickerCss() {
+        if (!formEnviado) {
+            return 'form-control'
+        }
+
+        if (dataNascimento) {
+            return 'form-control is-valid'
+        } else {
+            return 'form-control is-invalid'
+        }
+    }
+
     return (
         <Jumbotron
             fluid
@@ -52,7 +68,10 @@ function Checkout(props) {
                     touched,
                     errors
                 }) => (
-                    <Form noValidate style={{ margin: '10px' }}>
+                    <Form
+                        noValidate
+                        style={{ margin: '10px' }}
+                        onSubmit={handleSubmit}>
                         <Form.Group as={Row} controlId="email">
                             <Form.Label column sm={3}>
                                 Email
@@ -62,7 +81,11 @@ function Checkout(props) {
                                     type="email"
                                     placeholder="Digite o seu email"
                                     name="email"
-                                    data-testid="txt-email" />
+                                    data-testid="txt-email"
+                                    value={values.email}
+                                    onChange={handleChange}
+                                    isValid={touched.email && !errors.email}
+                                    isInvalid={touched.email && !!errors.email} />
                                 <Form.Control.Feedback
                                     type="invalid">
                                     Digite um email válido.
@@ -79,7 +102,11 @@ function Checkout(props) {
                                     type="text"
                                     placeholder="Digite o seu nome completo"
                                     name="nomeCompleto"
-                                    data-testid="txt-nome-completo" />
+                                    data-testid="txt-nome-completo"
+                                    values={values.nomeCompleto}
+                                    onChange={handleChange}
+                                    isValid={touched.nomeCompleto && !errors.nomeCompleto}
+                                    isInvalid={touched.nomeCompleto && !!errors.nomeCompleto} />
                                 <Form.Control.Feedback
                                     type="invalid">
                                     Digite o seu nome completo (mínimo 5 caracteres).
@@ -100,7 +127,10 @@ function Checkout(props) {
                                     dropdownMode="select"
                                     dateFormat="dd/MM/yyyy"
                                     placeholderText="Selecione a data"
-                                    withPortal />
+                                    withPortal
+                                    selected={dataNascimento}
+                                    onChange={handleDateNascimento}
+                                    className={datePickerCss()} />
                             </Col>
                         </Form.Group>
 
@@ -113,7 +143,11 @@ function Checkout(props) {
                                     type="text"
                                     placeholder="Digite o seu CPF"
                                     name="cpf"
-                                    data-testid="txt=cpf" />
+                                    data-testid="txt=cpf"
+                                    values={values.cpf}
+                                    onChange={handleChange}
+                                    isValid={touched.cpf && !errors.cpf}
+                                    isInvalid={touched.cpf && !!errors.cpf} />
                                 <Form.Control.Feedback type="invalid">
                                     Digite um CPF válido.
                         </Form.Control.Feedback>
@@ -129,7 +163,11 @@ function Checkout(props) {
                                     type="text"
                                     placeholder="Digite o seu endereço completo"
                                     name="endereco"
-                                    data-testid="txt-endereco" />
+                                    data-testid="txt-endereco"
+                                    values={values.endereco}
+                                    onChange={handleChange}
+                                    isValid={touched.endereco && !errors.endereco}
+                                    isInvalid={touched.endereco && !!errors.endereco} />
                                 <Form.Control.Feedback
                                     type="invalid">
                                     Digite o seu endereço.
@@ -145,7 +183,11 @@ function Checkout(props) {
                                 <Form.Control
                                     as="select"
                                     name="estado"
-                                    data-testid="estado">
+                                    data-testid="estado"
+                                    values={values.estado}
+                                    onChange={handleChange}
+                                    isValid={touched.estado && !errors.estado}
+                                    isInvalid={touched.estado && !!errors.estado}>
                                     <ListarEstados />
                                 </Form.Control>
                                 <Form.Control.Feedback type="invalid">
@@ -162,7 +204,11 @@ function Checkout(props) {
                                 <Form.Control
                                     as="select"
                                     name="cidade"
-                                    data-testid="cidade">
+                                    data-testid="cidade"
+                                    values={values.cidade}
+                                    onChange={handleChange}
+                                    isValid={touched.cidade && !errors.cidade}
+                                    isInvalid={touched.cidade && !!errors.cidade}>
                                     <option value="">Selecione a cidade</option>
                                     <ListarCidades estado={'MG'} />
                                 </Form.Control>
@@ -181,7 +227,11 @@ function Checkout(props) {
                                     type="text"
                                     placeholder="Digite o seu CEP"
                                     name="cep"
-                                    data-testid="txt-cep" />
+                                    data-testid="txt-cep"
+                                    values={values.cep}
+                                    onChange={handleChange}
+                                    isValid={touched.cep && !errors.cep}
+                                    isInvalid={touched.cep && !!errors.cep} />
                                 <Form.Control.Feedback type="invalid">
                                     Digite o seu CEP.
                         </Form.Control.Feedback>
@@ -199,7 +249,9 @@ function Checkout(props) {
                                 id="promocaoSim"
                                 value="S"
                                 label="Sim"
-                                style={{ marginLeft: '15px' }} />
+                                style={{ marginLeft: '15px' }}
+                                checked={values.emailPromocial === 'S'}
+                                onChange={handleChange} />
 
                             <Form.Check
                                 inline
@@ -208,7 +260,9 @@ function Checkout(props) {
                                 id="promocaoNao"
                                 value="N"
                                 label="Não"
-                                style={{ marginLeft: '15px' }} />
+                                style={{ marginLeft: '15px' }}
+                                checked={values.emailPromocial === 'N'}
+                                onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Row} controlId="termosCondicoes">
@@ -216,7 +270,11 @@ function Checkout(props) {
                                 name="termosCondicoes"
                                 label="Concordo com os termos e condições"
                                 style={{ marginLeft: '15px' }}
-                                data-testid="check-termos-condicoes" />
+                                data-testid="check-termos-condicoes"
+                                value={values.termosCondicoes}
+                                onChange={handleChange}
+                                isValid={touched.termosCondicoes && !errors.termosCondicoes}
+                                isValid={touched.termosCondicoes && !!errors.termosCondicoes} />
                         </Form.Group>
 
                         <Form.Group as={Row} controlId="finalizarCompra">
